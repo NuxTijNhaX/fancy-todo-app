@@ -35,11 +35,6 @@
 import BaseButton from "@/components/BaseButton.vue";
 
 export default {
-  props: {
-    taskList: {
-      type: Array,
-    },
-  },
   data() {
     return {
       task: null,
@@ -47,12 +42,12 @@ export default {
   },
   methods: {
     deleteTask() {
-      this.$emit("deleteTask", this.task.id);
+      this.$store.dispatch("deleteTask", this.task.id);
     },
   },
   created() {
-    this.task = this.taskList.find(
-      (el) => el.id === parseInt(this.$route.params.id)
+    this.task = this.$store.getters.getTaskById(
+      parseInt(this.$route.params.id)
     );
   },
   components: {

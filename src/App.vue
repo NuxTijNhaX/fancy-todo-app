@@ -1,59 +1,17 @@
 <template>
   <div>
     <header>
-      <h1
-        class="text-vue text-7xl font-bold text-center p-10"
-      >
-        Todo App
-      </h1>
+      <h1 class="text-vue text-7xl font-bold text-center p-10">Todo App</h1>
     </header>
     <main>
-      <router-view
-        :taskList="taskList"
-        @upsertTask="upsertTask"
-        @completeTask="completeTask"
-        @deleteTask="deleteTask"
-      ></router-view>
+      <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
-import taskList from './data/taskList';
-
 export default {
   name: "App",
-  data() {
-    return {
-      taskList: [...taskList],
-      color: "blue",
-    };
-  },
-  methods: {
-    upsertTask(task) {
-      if (this.isTaskExisted(task.id)) {
-        const currTask = this.taskList.find((i) => i.id === task.id);
-        currTask.name = task.name;
-        currTask.desc = task.desc;
-        currTask.level = task.level;
-        currTask.isCompleted = task.isCompleted;
-
-      } else {
-        this.taskList.push(task);
-      }
-    },
-    isTaskExisted(id) {
-      return this.taskList.some((task) => task.id === id);
-    },
-    completeTask(id) {
-      const currTask = this.taskList.find((i) => i.id === id);
-      currTask.isCompleted = !currTask.isCompleted;
-    },
-    deleteTask(id) {
-      let index = this.taskList.findIndex((el) => el.id === id);
-      this.taskList.splice(index, 1);
-    },
-  },
 };
 </script>
 

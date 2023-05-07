@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -23,11 +24,23 @@ const routes = [
     path: "/edit/:id",
     name: "edit-task",
     component: () => import("../views/EditTaskView.vue"),
+    beforeEnter: (to, from, next) => {
+      const isExisted = store.state.taskList.find((task) => task.id === to.params.id);
+
+      if (isExisted) next();
+      else next({ name: "not-found" });
+    },
   },
   {
     path: "/delete/:id",
     name: "delete-task",
     component: () => import("../views/DeleteTaskView.vue"),
+  },
+  {
+    path: "/not-found",
+    alias: "*",
+    name: "not-found",
+    component: () => import("../views/404NotFoundView.vue"),
   },
 ];
 

@@ -41,11 +41,7 @@
         </select>
       </div>
       <div class="mt-5 flex justify-around">
-        <router-link :to="{ name: 'home' }">
-          <base-button color="blue" icon="leftarrow" size="medium">
-            <template #content> Cancel </template>
-          </base-button>
-        </router-link>
+        <back-button color="blue" icon="leftarrow" size="medium" />
         <base-button color="yellow" icon="plus" size="medium">
           <template #content>
             <slot name="button"> Create </slot>
@@ -60,6 +56,7 @@
 import { taskLevel } from "@/enums/TaskLevel";
 import Task from "@/models/Task";
 import BaseButton from "./BaseButton.vue";
+import BackButton from "./BackButton.vue";
 
 export default {
   props: {
@@ -78,20 +75,6 @@ export default {
       },
     };
   },
-  methods: {
-    upsertTask() {
-      const newTask = new Task(this.task.name, this.task.desc, this.task.level);
-      this.task.name = "";
-      this.task.desc = "";
-      this.task.level = "";
-
-      if (this.currentTask) {
-        newTask.id = this.currentTask?.id ?? 0;
-      }
-
-      this.$emit("upsertTask", newTask);
-    },
-  },
   created() {
     if (this.currentTask !== undefined) {
       this.task.id = this.currentTask.id;
@@ -100,8 +83,32 @@ export default {
       this.task.level = this.currentTask.level;
     }
   },
+  methods: {
+    upsertTask() {
+      const newTask = new Task(this.task.name, this.task.desc, this.task.level);
+
+      if (this.currentTask) {
+        newTask.id = this.currentTask?.id ?? 0;
+      }
+
+      this.$store.dispatch("upsertTask", newTask);
+
+      if (this.task?.id ?? 0 !== 0) {
+        this.$router.push({ name: "home" });
+      }
+
+      this.emptyInput();
+    },
+    emptyInput() {
+      this.task.name = "";
+      this.task.desc = "";
+      this.task.level = "";
+    },
+  },
+
   components: {
     BaseButton,
+    BackButton,
   },
 };
 </script>

@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <task-row @completeTask="completeTask" v-for="task in taskList" :key="task.id" :task="task"></task-row>
+      <task-row v-for="task in taskList" :key="task.id" :task="task"></task-row>
     </tbody>
   </table>
 </template>
@@ -22,11 +22,6 @@ export default {
   props: {
     taskList: {
       type: Array,
-    },
-  },
-  methods: {
-    completeTask(value) {
-      this.$emit("completeTask", value);
     },
   },
   components: {

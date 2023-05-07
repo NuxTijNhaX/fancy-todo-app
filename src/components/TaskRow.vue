@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import types from '@/store/mutation-types';
 import MyButton from "./BaseButton.vue";
 
 export default {
@@ -47,8 +48,7 @@ export default {
   },
   methods: {
     completeTask() {
-      this.isCompleted = !this.isCompleted;
-      this.$emit("completeTask", this.task.id);
+      this.$store.commit(types.TOGGLE_TASK, this.task.id);
     },
   },
   computed: {

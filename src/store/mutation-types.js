@@ -1,0 +1,8 @@
+const types = {
+  UPSERT_TASK: "UPSERT_TASK",
+  DELETE_TASK: "DELETE_TASK",
+  TOGGLE_TASK: "TOGGLE_TASK",
+  CHANGE_SEARCH: "CHANGE_SEARCH",
+};
+
+export default types;
