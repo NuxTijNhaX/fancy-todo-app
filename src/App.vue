@@ -1,13 +1,7 @@
 <template>
   <div>
     <header>
-      <div class="flex justify-end mr-10">
-        <router-link :to="{ name: 'login' }">
-          <button class="pt-3">
-            <span v-html="getUserSvg"></span>
-          </button>
-        </router-link>
-      </div>
+      <user-nav />
       <div class="p-10 pt-3">
         <div class="text-center">
           <router-link :to="{ name: 'home' }">
@@ -25,15 +19,13 @@
 </template>
 
 <script>
-import { iconList } from "./enums/Icon";
+import UserNav from './components/UserNav.vue';
 
 export default {
   name: "App",
-  computed: {
-    getUserSvg() {
-      return iconList.user;
-    },
-  },
+  components: {
+    UserNav
+  }
 };
 </script>
 

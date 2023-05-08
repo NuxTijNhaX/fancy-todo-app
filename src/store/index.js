@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    user: null,
     taskList: [
       {
         id: 1,
@@ -71,6 +72,12 @@ export default new Vuex.Store({
     [types.CHANGE_SEARCH](state, searchString) {
       state.searchString = searchString;
       console.log("ok");
+    },
+    LOG_IN(state, user) {
+      state.user = user ?? null;
+    },
+    LOG_OUT(state) {
+      state.user = null;
     },
   },
   actions: {
